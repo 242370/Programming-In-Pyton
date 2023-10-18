@@ -31,15 +31,14 @@ class Zad1:
         self.quantitiveData = pandas.DataFrame(self.quantitiveData)
         return self.quantitiveData[self.quantitiveData.columns[column]]
 
-    #TODO: needs quartiles
     def generate_quantitive_dataframe(self):
         final_data = []
         for i in range(self.quantitiveData.shape[1]):
             property = self.isolate_property(i)
-            final_data.append([np.mean(property), np.std(property), np.min(property), np.median(property), np.max(property)])
+            final_data.append(
+                [np.mean(property), np.std(property), np.min(property), np.quantile(property, [0.25]), np.median(property),
+                 np.quantile(property, [0.75]), np.max(property)])
         return pandas.DataFrame(final_data,
-                                index=['Length', 'Diameter', 'Height', 'Whole weight', 'Shucked weight', 'Viscera weight', 'Shell weight', 'Rings'],
-                                columns=['mean', 'std', 'min', '50%', 'max'])
-
-
-
+                                index=['Length', 'Diameter', 'Height', 'Whole weight', 'Shucked weight', 'Viscera weight', 'Shell weight',
+                                       'Rings'],
+                                columns=['mean', 'std', 'min', '25%', '50%', '75%', 'max'])

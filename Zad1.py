@@ -1,13 +1,15 @@
 import pandas
 import numpy as np
-import Arrays
+import matplotlib.pyplot as plot
 
 
 class Zad1:
     def __init__(self):
-        self.data = pandas.read_csv("data.csv", header=None)
+        self.data = pandas.read_csv("data.csv", sep=',',
+                                    names=["Sex", "Length", "Diameter", "Height", "Whole weight", "Shucked weight", "Viscera weight", "Shell weight",
+                                           "Rings"])
         self.qualitativeData = self.data[self.data.columns[0]]
-        self.quantitiveData = self.data[self.data.columns[1:]]
+        self.quantitiveData = pandas.DataFrame(self.data[self.data.columns[1:]])
 
     def genderof(self, index):
         return self.qualitativeData[index]
@@ -28,7 +30,6 @@ class Zad1:
         return pandas.DataFrame(final_data, index=['Male', 'Infant', 'Female'], columns=['count', '%'])
 
     def isolate_property(self, column):
-        self.quantitiveData = pandas.DataFrame(self.quantitiveData)
         return self.quantitiveData[self.quantitiveData.columns[column]]
 
     def generate_quantitive_dataframe(self):
@@ -42,3 +43,35 @@ class Zad1:
                                 index=['Length', 'Diameter', 'Height', 'Whole weight', 'Shucked weight', 'Viscera weight', 'Shell weight',
                                        'Rings'],
                                 columns=['mean', 'std', 'min', '25%', '50%', '75%', 'max'])
+
+    def generate_qualitative_bar_chart(self):
+        x = ["Male", "Female", "Infant"]
+        y = [self.count_genders("M"), self.count_genders('F'), self.count_genders('I')]
+        plot.bar(x[0], y[0], color="blue", width=0.5)
+        plot.bar(x[1], y[1], color="red", width=0.5)
+        plot.bar(x[2], y[2], color="green", width=0.5)
+        plot.xlabel("Sex")
+        plot.ylabel("Quantity")
+        plot.title("Qualitative variable occurrences")
+        plot.text(x[0], y[0], str(y[0]), ha='center')  # ha - horizontal alignment
+        plot.text(x[1], y[1], str(y[1]), ha='center')
+        plot.text(x[2], y[2], str(y[2]), ha='center')
+        plot.show()
+
+    def generate_quantitive_histogram(self, number_of_bins):
+        figure, plot_number = plot.subplots(4, 2, layout='constrained')
+
+        for i in range(0, 4):
+            for j in range(0, 2):
+                plot_number[i, j].hist(self.isolate_property(2 * i + j), bins=number_of_bins)
+                title = self.quantitiveData.columns[2 * i + j]
+                plot_number[i, j].set_title(title)
+
+        for histogram in plot_number.flat:
+            histogram.set(xlabel='Value', ylabel='Quantity')
+
+        plot.show()
+
+    def generate_correlation_matrix(self):
+        matrix = self.quantitiveData.corr(method='pearson')
+        return matrix

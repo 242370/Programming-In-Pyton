@@ -77,18 +77,19 @@ class Zad1:
     def generate_correlation_matrix(self):
         return self.quantitiveData.corr(method='pearson')
 
-    # TODO: Should work but doesn't xD
     def generate_quantitive_scatter_plot(self):
         figure, plot_number = plot.subplots(14, 2, layout='constrained')
-        plots = []
 
+        row = 0
+        col = 0
         for first_property in range(self.quantitiveData.shape[1]):
             for second_property in range(first_property + 1, self.quantitiveData.shape[1]):
-                plots.append(plot.scatter(self.isolate_property(first_property), self.isolate_property(second_property)))
-
-        for row in range(0, 14):
-            for col in range(0, 2):
-                plot_number[row, col] = plots.pop(0)
+                plot_number[row, col].scatter(self.isolate_property(first_property), self.isolate_property(second_property))
+                title = self.quantitiveData.columns[first_property] + ' ' + self.quantitiveData.columns[second_property]
+                plot_number[row, col].set_title(title)
+                col = 1 - col
+                if col == 0:
+                    row += 1
 
         plot.show()
 

@@ -41,7 +41,6 @@ class Zad2:
         if shortest_distance <= self.wolf_movement_value:
             self.wolf.position = self.sheep[closest_sheep_index].position
             self.sheep.pop(closest_sheep_index)
-            self.number_of_sheep -= 1
             is_sheep_eaten = True
 
         else:
@@ -82,13 +81,11 @@ class Zad2:
         self.list_of_dicts.append(current_round_data)
 
     def save_to_csv(self, round_number):
-        with open("alive.csv", "a") as outfile:
+        with open("alive.csv", "a", newline='') as outfile:
             file_writer = csv.writer(outfile)
             if round_number == 0:
                 file_writer.writerow(["round_no", "alive_sheep"])
             file_writer.writerow([round_number + 1, len(self.sheep)])
-
-
 
     def start_simulation(self):
         open("pos.json", "w").close()

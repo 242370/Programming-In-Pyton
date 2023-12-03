@@ -1,3 +1,4 @@
+import csv
 import json
 import math
 
@@ -74,14 +75,24 @@ class Zad2:
             if is_sheep_eaten:
                 sheep_pos.append(None)
 
-        current_round_data = {"round_no": round_number,
+        current_round_data = {"round_no": round_number + 1,
                               "wolf_pos": self.wolf.position,
                               "sheep_pos": sheep_pos}
 
         self.list_of_dicts.append(current_round_data)
 
+    def save_to_csv(self, round_number):
+        with open("alive.csv", "a") as outfile:
+            file_writer = csv.writer(outfile)
+            if round_number == 0:
+                file_writer.writerow(["round_no", "alive_sheep"])
+            file_writer.writerow([round_number + 1, len(self.sheep)])
+
+
+
     def start_simulation(self):
         open("pos.json", "w").close()
+        open("alive.csv", "w").close()
 
         for round_number in range(self.number_of_rounds):
             if len(self.sheep) == 0:
@@ -98,6 +109,8 @@ class Zad2:
             self.print_data(round_number, focused_sheep, is_sheep_eaten)
 
             self.save_to_json(round_number)
+
+            self.save_to_csv(round_number)
 
         print('Some sheep managed to escape')
         with open("pos.json", "w") as outfile:

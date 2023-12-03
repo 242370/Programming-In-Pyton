@@ -2,10 +2,11 @@ import random
 
 
 class Sheep:
-    def __init__(self, absolute_value: float):
+    def __init__(self, absolute_value: float, sequence_number):
         self.position = (round(random.uniform(-absolute_value, absolute_value), 1),
                          round(random.uniform(-absolute_value, absolute_value), 1))
         self.directions = ('Up', 'Right', 'Down', 'Left')
+        self.sequence_number = sequence_number
 
     def move(self, movement_value):
         current_direction = random.choice(self.directions)

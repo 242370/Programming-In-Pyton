@@ -4,7 +4,6 @@ import math
 
 from Sheep import Sheep
 from Wolf import Wolf
-import numpy as np
 
 
 class Zad2:
@@ -18,21 +17,24 @@ class Zad2:
         self.wolf_movement_value = 1.0
         # Actors
         self.wolf = Wolf()
-        self.sheep = []
+        self.sheep = {}
+
         for sheep in range(self.number_of_sheep):
-            self.sheep.append(Sheep(self.absolute_value, sheep + 1))
+            self.sheep[sheep] = Sheep(self.absolute_value, sheep)
 
     def first_stage(self):
-        for sheep in range(len(self.sheep)):
-            self.sheep[sheep].move(self.sheep_movement_value)
+        for sheep in self.sheep.values():
+            sheep.move(self.sheep_movement_value)
 
-        shortest_distance = math.dist(self.wolf.position, self.sheep[0].position)
-        closest_sheep_index = 0
-        for sheep in range(1, len(self.sheep)):
-            current_distance = math.dist(self.wolf.position, self.sheep[sheep].position)
+        shortest_distance = float('inf')
+        closest_sheep_index = -1
+
+        for sheep in self.sheep.items():
+            # sheep: Tuple[int, Sheep]
+            current_distance = math.dist(self.wolf.position, sheep[1].position)
             if current_distance < shortest_distance:
                 shortest_distance = current_distance
-                closest_sheep_index = sheep
+                closest_sheep_index = sheep[0]
 
         return shortest_distance, closest_sheep_index
 
@@ -64,15 +66,10 @@ class Zad2:
     def save_to_json(self, round_number):
         sheep_pos = []
         for sheep_sequence_number in range(self.number_of_sheep):
-            is_sheep_eaten = True
-            for sheep in range(len(self.sheep)):
-                if sheep_sequence_number + 1 == self.sheep[sheep].sequence_number:
-                    sheep_pos.append(self.sheep[sheep].position)
-                    is_sheep_eaten = False
-                    break
-
-            if is_sheep_eaten:
+            if self.sheep.get(sheep_sequence_number) is None:
                 sheep_pos.append(None)
+            else:
+                sheep_pos.append(sheep_pos.append(self.sheep[sheep_sequence_number].position))
 
         current_round_data = {"round_no": round_number + 1,
                               "wolf_pos": self.wolf.position,

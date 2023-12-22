@@ -6,6 +6,9 @@ app = Flask(__name__)
 app.config.from_object(Config)
 db = SQLAlchemy(app)
 
+with app.app_context():
+    db.create_all()
+
 
 @app.route('/')
 def hello_world():

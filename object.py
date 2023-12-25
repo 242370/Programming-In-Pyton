@@ -1,6 +1,8 @@
 import sqlalchemy as sa
 import sqlalchemy.orm as so
-from api import db, app
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy()
 
 
 class Object(db.Model):

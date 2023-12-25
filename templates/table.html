@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>ID</tr>
+    <tr>Categorical</tr>
+    <tr>Feature1</tr>
+    <tr>Feature2</tr>
+    </thead>
+    {% for row in range(row_count) %}
+    <tr>
+        {% for column in range(column_count) %}
+        <td>{{ xD }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+</body>
+</html>

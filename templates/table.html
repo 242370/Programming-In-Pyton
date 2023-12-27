@@ -13,12 +13,15 @@
         <td>Feature2</td>
     </tr>
     </thead>
-    {% for row in range(row_count) %}
+    {% for object in objects %}
     <tr>
-        <td>{{ ID }}</td>
-        <td>{{ categorical }}</td>
-        <td>{{ continuous1 }}</td>
-        <td>{{ continuous2 }}</td>
+        <td>{{ object.id }}</td>
+        <td>{{ object.categorical }}</td>
+        <td>{{ object.continuous1 }}</td>
+        <td>{{ object.continuous2 }}</td>
+        <td>
+            <button>DELETE</button>
+        </td>
     </tr>
     {% endfor %}
 </table>

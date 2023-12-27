@@ -13,24 +13,10 @@ with app.app_context():
 
 
 @app.route('/')
-def hello_world():
+def display_table():
     with app.app_context():
-        ids = ''
-        categoricals = ''
-        continuous1 = ''
-        continuous2 = ''
-        row_count = 0
-
         database_content = db.session.query(Object).all()
-        for object in database_content:
-            ids = ids + str(object.id)
-            categoricals = categoricals + str(object.categorical)
-            continuous1 = continuous1 + str(object.continuous1)
-            continuous2 = continuous2 + str(object.continuous2)
-            row_count += 1
-
-        return render_template('table.html', row_count=row_count, ID=ids, categorical=categoricals
-                               , continuous1=continuous1, continuous2=continuous2)
+        return render_template('table.html', objects=database_content)
 
 
 @app.route('/test')

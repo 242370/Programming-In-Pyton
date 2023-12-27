@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css">
 </head>
 <body>
-<table>
+<table class="table table-bordered table-striped">
     <thead>
-    <tr>ID</tr>
-    <tr>Categorical</tr>
-    <tr>Feature1</tr>
-    <tr>Feature2</tr>
+    <tr>
+        <td>ID</td>
+        <td>Categorical</td>
+        <td>Feature1</td>
+        <td>Feature2</td>
+    </tr>
     </thead>
     {% for row in range(row_count) %}
     <tr>
-        {% for column in range(column_count) %}
-        <td>{{ xD }}</td>
-        {% endfor %}
+        <td>{{ ID }}</td>
+        <td>{{ categorical }}</td>
+        <td>{{ continuous1 }}</td>
+        <td>{{ continuous2 }}</td>
     </tr>
     {% endfor %}
 </table>

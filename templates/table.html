@@ -20,7 +20,10 @@
         <td>{{ object.continuous1 }}</td>
         <td>{{ object.continuous2 }}</td>
         <td>
-            <button>DELETE</button>
+            <form method="POST"
+                  action="{{ url_for('delete_record', record_id=object.id) }}">
+                <button type="submit">DELETE</button>
+            </form>
         </td>
     </tr>
     {% endfor %}

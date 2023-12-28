@@ -1,5 +1,4 @@
 import sqlalchemy as sa
-import sqlalchemy.orm as so
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()

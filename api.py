@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request
 
 from config import Config
 from object import Object, db
@@ -30,9 +30,13 @@ def display_adding_form():
 
 
 @app.route('/add', methods=['POST'])
-def add_record(object):
+def add_record():
+    categorical = request.form.get('param1', type=int)
+    continuous1 = request.form.get('param2', type=float)
+    continuous2 = request.form.get('param3', type=float)
+    new_object = Object(categorical=categorical, continuous1=continuous1, continuous2=continuous2)
     with app.app_context():
-        db.session.add(object)
+        db.session.add(new_object)
         db.session.commit()
         return redirect('/')
 

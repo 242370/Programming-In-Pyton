@@ -24,6 +24,20 @@ def delete_record(record_id):
         return redirect('/')
 
 
+@app.route('/add', methods=['GET'])
+def display_adding_form():
+    return render_template('form.html')
+
+
+@app.route('/add', methods=['POST'])
+def add_record(object):
+    with app.app_context():
+        db.session.add(object)
+        db.session.commit()
+        return redirect('/')
+
+
+# testing endpoint
 @app.route('/hello_world')
 def hello_world():
     return 'Hello World!'

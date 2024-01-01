@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <title>Database of objects</title>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/css/bootstrap.min.css">
 </head>
 <body>
-<table class="table table-bordered table-striped">
+<div>
+    <table class="table table-bordered table-striped">
     <thead>
     <tr>
         <td>ID</td>
@@ -28,5 +32,12 @@
     </tr>
     {% endfor %}
 </table>
+</div>
+<div style="display: flex; justify-content: center">
+    <form method="GET"
+          action="{{ url_for('display_adding_form') }}">
+        <button type="submit">ADD NEW RECORD</button>
+    </form>
+</div>
 </body>
 </html>

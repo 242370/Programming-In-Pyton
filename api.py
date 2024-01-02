@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask, render_template, redirect, request
 
 from config import Config
@@ -58,7 +60,17 @@ def display_error_page(error_code):
     return render_template('error.html', error_code=error_code), error_code
 
 
-# testing endpoint
-@app.route('/hello_world')
-def hello_world():
-    return 'Hello World!'
+@app.route('/api/data', methods=['GET'])
+def api_get_data():
+    json_dicts = []
+
+    with app.app_context():
+        db.create_all()
+        database_content = db.session.query(Object).all()
+
+    for object in database_content:
+        json_dict = {'id': object.id, 'categorical': object.categorical, 'continuous1': object.continuous1, 'continuous2': object.continuous2}
+        json_dicts.append(json_dict)
+
+    json_data = json.dumps(json_dicts, indent=4)
+    return json_data

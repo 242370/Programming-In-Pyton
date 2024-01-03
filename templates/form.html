@@ -19,12 +19,15 @@
             <label for="continuous1">Continuous1:</label>
             <input type="text" class="form-control" id="continuous1" placeholder="Continuous1:" name="continuous1">
         </div>
-        <div class="form-group">
+        <div class="form-group" style="margin-bottom: 5px">
             <label for="continuous2">Continuous2:</label>
             <input type="text" class="form-control" id="continuous2" placeholder="Continuous2:" name="continuous2">
         </div>
 
         <button class="btn btn-primary">SUBMIT</button>
+    </form>
+    <form method="get" action="{{ url_for('display_table') }}">
+        <button class="btn btn-secondary" style="margin-left: 94%">CANCEL</button>
     </form>
 </div>
 

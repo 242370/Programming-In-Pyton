@@ -11,7 +11,7 @@
     <table class="table table-bordered table-striped">
     <thead>
     <tr>
-        <td>ID</td>
+        <td>Sequence number</td>
         <td>Categorical</td>
         <td>Continuous1</td>
         <td>Continuous1</td>
@@ -19,7 +19,7 @@
     </thead>
     {% for object in objects %}
     <tr>
-        <td>{{ object.id }}</td>
+        <td>{{ loop.index }}</td>
         <td>{{ object.categorical }}</td>
         <td>{{ object.continuous1 }}</td>
         <td>{{ object.continuous2 }}</td>

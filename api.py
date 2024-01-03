@@ -18,7 +18,7 @@ def display_table():
         return render_template('table.html', objects=database_content)
 
 
-@app.route('/delete/<record_id>', methods=['POST', 'GET'])  # TODO: ask about GET
+@app.route('/delete/<record_id>', methods=['POST'])
 def delete_record(record_id):
     # with app.app_context():
     record_to_be_deleted = db.session.get(Object, record_id)
@@ -111,6 +111,10 @@ def api_delete_data(record_id):
 
 # api testing
 if __name__ == '__main__':
+    print('DELETE FROM WEB PART TESTING WITH INVALID INDEX')
+    r = requests.post('http://127.0.0.1:5000/delete/100')
+    print('Message: ' + str(r.content))
+    print('\n')
     print('GET TESTING')
     r = requests.get('http://127.0.0.1:5000/api/data')
     print('GET status code: ' + str(r.status_code))
